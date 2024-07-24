@@ -8,7 +8,7 @@
 
 <br><br>
 
-![Application preview](/github/screenshot.png)
+![Application preview](https://github.com/lalabuy948/TheWorldLine/blob/master/github/sreenshot.png)
 
 ## How to
 
