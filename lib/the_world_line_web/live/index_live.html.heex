@@ -1,0 +1,131 @@
+<.flash_group flash={@flash} />
+<div class="leading-normal tracking-normal text-indigo-400 bg-auto h-full">
+  <div class="min-h-screen">
+    <!--Nav-->
+    <div class="w-full container mx-auto">
+      <div class="w-full flex items-center justify-between">
+        <a
+          class="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+          href="#"
+        >
+          The
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
+            WorldLine
+          </span>
+        </a>
+
+        <div class="flex w-1/2 justify-end content-center"></div>
+      </div>
+    </div>
+    <!--Main-->
+    <div class="container min-h-full pt-24 md:pt-36 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+      <!--Left Col-->
+      <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
+        <h1 class="my-4 text-3xl md:text-5xl opacity-75 font-bold leading-tight text-center md:text-left">
+          Trully
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
+            Eco Friendly
+          </span>
+          social platform
+        </h1>
+        <p class="leading-normal text-base md:text-2xl mb-8 text-center md:text-left">
+          Low to zero CO2 emission for each post, since we do not store and do not process your data.
+        </p>
+
+        <form
+          phx-change="validate"
+          phx-submit="login"
+          class="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4"
+        >
+          <fieldset disabled={if @logged_in, do: true, else: false}>
+            <div class="mb-4">
+              <label class="block text-blue-300 py-2 font-bold mb-2" for="emailaddress">
+                Pick your nickname:
+              </label>
+              <input
+                type="text"
+                name="nickname"
+                id="nickname"
+                value={@nickname}
+                class="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+              />
+              <%= if @error do %>
+                <div class="error"><%= @error %></div>
+              <% end %>
+            </div>
+
+            <div class="flex items-center justify-between pt-4">
+              <button
+                class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                type="submit"
+              >
+                Login
+              </button>
+            </div>
+          </fieldset>
+        </form>
+        <%!-- </form> --%>
+      </div>
+      <!--Right Col-->
+      <div class="flex flex-col w-full xl:w-3/5 justify-center">
+        <div class="mockup-phone">
+          <div class="camera"></div>
+          <div class="display">
+            <div class="artboard artboard-demo phone-1">
+              <div id="chat" class="w-full flex-grow overflow-auto mt-8" phx-hook="AutoScroll">
+                <div :for={message <- @messages} className="">
+                  <div class={[
+                    "chat overflow-hidden",
+                    if(message.nickname == @nickname,
+                      do: "chat-end",
+                      else: "chat-start"
+                    )
+                  ]}>
+                    <div class="chat-header">
+                      <%= message.nickname %>
+                    </div>
+                    <div class="chat-bubble max-w-xs md:max-w-md lg:max-w-lg break-words break-all">
+                      <%= message.message %>
+                    </div>
+                    <div class="chat-footer opacity-50">
+                      <%= message.created_at
+                      |> DateTime.from_unix!()
+                      |> Calendar.strftime("%H:%M:%S") %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <form phx-submit="new_message" class="form-control m-5 items-center">
+                <fieldset disabled={if @logged_in, do: false, else: true}>
+                  <div class="join">
+                    <input
+                      class="input input-bordered w-full max-w-xs join-item"
+                      type="text"
+                      name="text"
+                      placeholder="Message..."
+                      autofocus
+                    />
+                    <button type="submit" class="btn btn-active btn-secondary join-item">
+                      Send
+                    </button>
+                  </div>
+                </fieldset>
+              </form>
+
+              <div class="text-center">
+                <h1>current users: <%= @present %></h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Footer-->
+      <div class="sticky bottom-0 inset-x-0 w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
+        <a class="text-gray-500 no-underline hover:no-underline" href="#">
+          © TheWorldLine <%= Date.utc_today().year %>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
