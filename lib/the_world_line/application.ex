@@ -9,9 +9,6 @@ defmodule TheWorldLine.Application do
   def start(_type, _args) do
     children = [
       TheWorldLineWeb.Telemetry,
-      TheWorldLine.Repo,
-      {Ecto.Migrator,
-       repos: Application.fetch_env!(:the_world_line, :ecto_repos), skip: skip_migrations?()},
       {DNSCluster, query: Application.get_env(:the_world_line, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: TheWorldLine.PubSub},
       # Start the Finch HTTP client for sending emails
@@ -39,8 +36,4 @@ defmodule TheWorldLine.Application do
     :ok
   end
 
-  defp skip_migrations?() do
-    # By default, sqlite migrations are run when using a release
-    System.get_env("RELEASE_NAME") != nil
-  end
 end

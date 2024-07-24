@@ -1,11 +1,11 @@
 import Config
 
 # Configure your database
-config :the_world_line, TheWorldLine.Repo,
-  database: Path.expand("../the_world_line_dev.db", __DIR__),
-  pool_size: 5,
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true
+# config :the_world_line, TheWorldLine.Repo,
+#   database: Path.expand("../the_world_line_dev.db", __DIR__),
+#   pool_size: 5,
+#   stacktrace: true,
+#   show_sensitive_data_on_connection_error: true
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
